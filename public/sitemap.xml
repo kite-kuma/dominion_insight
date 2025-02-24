@@ -1,18 +1,33 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/dominion_insight/articles/</loc>
+    <loc>http://localhost:1313/dominion_insight/articles/index.html</loc>
+    <lastmod>2025-02-25T00:45:29+09:00</lastmod>
+  </url>
+  <url>
+    <loc>http://localhost:1313/dominion_insight/index.html</loc>
+    <lastmod>2025-02-25T00:45:29+09:00</lastmod>
+  </url>
+  <url>
+    <loc>http://localhost:1313/dominion_insight/articles/strategies/steroid/index.html</loc>
+    <lastmod>2025-02-25T00:45:29+09:00</lastmod>
+  </url>
+  <url>
+    <loc>http://localhost:1313/dominion_insight/articles/strategies/steroid/steroid_basic/index.html</loc>
+    <lastmod>2025-02-25T00:45:29+09:00</lastmod>
+  </url>
+  <url>
+    <loc>http://localhost:1313/dominion_insight/articles/strategies/index.html</loc>
+    <lastmod>2025-02-25T00:45:29+09:00</lastmod>
+  </url>
+  <url>
+    <loc>http://localhost:1313/dominion_insight/articles/intro/index.html</loc>
     <lastmod>2025-02-25T00:09:22+09:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/dominion_insight/</loc>
-    <lastmod>2025-02-25T00:09:22+09:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/dominion_insight/articles/intro/</loc>
-    <lastmod>2025-02-25T00:09:22+09:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/dominion_insight/categories/</loc>
-  </url><url>
-    <loc>http://localhost:1313/dominion_insight/tags/</loc>
+  </url>
+  <url>
+    <loc>http://localhost:1313/dominion_insight/categories/index.html</loc>
+  </url>
+  <url>
+    <loc>http://localhost:1313/dominion_insight/tags/index.html</loc>
   </url>
 </urlset>

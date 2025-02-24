@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>戦略 :: Dominion Insight</title>
+    <link>http://localhost:1313/dominion_insight/articles/strategies/index.html</link>
+    <description></description>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Tue, 25 Feb 2025 00:45:29 +0900</lastBuildDate>
+    <atom:link href="http://localhost:1313/dominion_insight/articles/strategies/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ステロ</title>
+      <link>http://localhost:1313/dominion_insight/articles/strategies/steroid/index.html</link>
+      <pubDate>Tue, 25 Feb 2025 00:45:29 +0900</pubDate>
+      <guid>http://localhost:1313/dominion_insight/articles/strategies/steroid/index.html</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

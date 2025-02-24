@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Dominion Insight</title>
-    <link>http://localhost:1313/dominion_insight/</link>
-    <description>Recent content on Dominion Insight</description>
-    <generator>Hugo -- 0.144.2</generator>
+    <link>http://localhost:1313/dominion_insight/index.html</link>
+    <description></description>
+    <generator>Hugo</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 25 Feb 2025 00:09:22 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 25 Feb 2025 00:45:29 +0900</lastBuildDate>
     <atom:link href="http://localhost:1313/dominion_insight/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Intro</title>
-      <link>http://localhost:1313/dominion_insight/articles/intro/</link>
-      <pubDate>Tue, 25 Feb 2025 00:09:22 +0900</pubDate>
-      <guid>http://localhost:1313/dominion_insight/articles/intro/</guid>
-      <description>&lt;h1 id=&#34;はじめに&#34;&gt;はじめに&lt;/h1&gt;
-&lt;p&gt;このサイトではデッキ構築型カードゲーム『ドミニオン』の戦術について解説します．主に&lt;a href=&#34;https://dominion.games/&#34;&gt;ドミニオンオンライン&lt;/a&gt;における 2 人対戦を想定しています．&lt;/p&gt;
-&lt;h1 id=&#34;管理人について&#34;&gt;管理人について&lt;/h1&gt;
-&lt;p&gt;ドミニオン歴自体は 4 年ほどで，ドミニオンオンラインでレートが 58 程度です．ドミニオンの基礎的な戦術について概ね理解していると思っています．一方で構築手順や終盤での立ち回りなど，まだまだ最上位層には実力が遠い部分もあると感じています．&lt;/p&gt;
-&lt;p&gt;私自身が日々ドミニオンに触れていく中で得た学びを文章化することで実力向上にも繋がるのではと思い，このサイトを制作しました．よろしくお願いします．&lt;/p&gt;</description>
+      <title>Articles</title>
+      <link>http://localhost:1313/dominion_insight/articles/index.html</link>
+      <pubDate>Tue, 25 Feb 2025 00:45:29 +0900</pubDate>
+      <guid>http://localhost:1313/dominion_insight/articles/index.html</guid>
+      <description></description>
     </item>
   </channel>
 </rss>
