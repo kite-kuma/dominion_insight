@@ -1,4 +1,4 @@
 baseURL = 'https://kite-kuma.github.io/dominion_insight/'
-languageCode = 'en-us'
+languageCode = 'ja'
 title = 'Dominion Insight'
 theme = "PaperMod"
