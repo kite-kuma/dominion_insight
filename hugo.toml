@@ -1,4 +1,4 @@
-baseURL = 'https://example.org/'
+baseURL = 'https://kite-kuma.github.io/dominion_insight/'
 languageCode = 'en-us'
 title = 'Dominion Insight'
 theme = "PaperMod"
