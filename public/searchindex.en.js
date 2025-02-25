@@ -24,14 +24,6 @@ var relearn_searchindex = [
     "uri": "/dominion_insight/articles/strategies/steroid/index.html"
   },
   {
-    "breadcrumb": "Dominion Insight \u003e  Articles \u003e  戦略 \u003e  ステロ",
-    "content": "ドミニオンにはステロとコンボがある．これは幾度となく言われることであるが，実際にドミニオンの 2 人戦で純粋なステロをする機会は多くない．基本的にはコンボに負けるためである．\nしかし完全にランダムに選択したサプライにおいて，コンボができない，またはステロに比べて遅いものは無視できない程度にはある．\nこのサイトでは様々なカードを用いるステロについて検証し，コンボや他のステロとの比較検証を行っていくこととする．",
-    "description": "ドミニオンにはステロとコンボがある．これは幾度となく言われることであるが，実際にドミニオンの 2 人戦で純粋なステロをする機会は多くない．基本的にはコンボに負けるためである．\nしかし完全にランダムに選択したサプライにおいて，コンボができない，またはステロに比べて遅いものは無視できない程度にはある．\nこのサイトでは様々なカードを用いるステロについて検証し，コンボや他のステロとの比較検証を行っていくこととする．",
-    "tags": [],
-    "title": "ステロの基本",
-    "uri": "/dominion_insight/articles/strategies/steroid/steroid_basic/index.html"
-  },
-  {
     "breadcrumb": "Dominion Insight \u003e  Articles",
     "content": "",
     "description": "",
