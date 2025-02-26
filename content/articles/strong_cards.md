@@ -1,6 +1,6 @@
 +++
 date = '2025-02-26T02:16:49+09:00'
-draft = false
+draft = true
 title = 'ゲームの性質を変えるカード'
 +++
 
