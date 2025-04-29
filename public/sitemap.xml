@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/dominion_insight/articles/index.html</loc>
-    <lastmod>2025-02-26T02:16:49+09:00</lastmod>
-  </url>
-  <url>
     <loc>http://localhost:1313/dominion_insight/index.html</loc>
     <lastmod>2025-02-26T02:16:49+09:00</lastmod>
   </url>
   <url>
-    <loc>http://localhost:1313/dominion_insight/articles/strategy_cotegorization/index.html</loc>
+    <loc>http://localhost:1313/dominion_insight/strategy_cotegorization/index.html</loc>
     <lastmod>2025-02-26T01:12:10+09:00</lastmod>
   </url>
   <url>
-    <loc>http://localhost:1313/dominion_insight/articles/intro/index.html</loc>
+    <loc>http://localhost:1313/dominion_insight/intro/index.html</loc>
+    <lastmod>2025-02-25T00:09:22+09:00</lastmod>
+  </url>
+  <url>
+    <loc>http://localhost:1313/dominion_insight/grotto/index.html</loc>
     <lastmod>2025-02-25T00:09:22+09:00</lastmod>
   </url>
   <url>
