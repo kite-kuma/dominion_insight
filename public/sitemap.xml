@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/dominion_insight/index.html</loc>
+    <loc>http://localhost:1313/dominion_insight/posts/cards/grotto/index.html</loc>
+    <lastmod>2025-05-05T00:29:29+09:00</lastmod>
+  </url>
+  <url>
+    <loc>http://localhost:1313/dominion_insight/posts/juwelled-egg_watchtower/index.html</loc>
     <lastmod>2025-05-04T02:29:29+09:00</lastmod>
   </url>
   <url>
-    <loc>http://localhost:1313/dominion_insight/juwelled-egg_watchtower/index.html</loc>
-    <lastmod>2025-05-04T02:29:29+09:00</lastmod>
-  </url>
-  <url>
-    <loc>http://localhost:1313/dominion_insight/grotto/index.html</loc>
-    <lastmod>2025-04-30T01:09:22+09:00</lastmod>
-  </url>
-  <url>
-    <loc>http://localhost:1313/dominion_insight/strategy_cotegorization/index.html</loc>
+    <loc>http://localhost:1313/dominion_insight/posts/general_remarks/strategy_cotegorization/index.html</loc>
     <lastmod>2025-02-26T01:12:10+09:00</lastmod>
   </url>
   <url>
-    <loc>http://localhost:1313/dominion_insight/intro/index.html</loc>
+    <loc>http://localhost:1313/dominion_insight/index.html</loc>
+    <lastmod>2025-02-25T00:09:22+09:00</lastmod>
+  </url>
+  <url>
+    <loc>http://localhost:1313/dominion_insight/posts/about_this_site/index.html</loc>
+    <lastmod>2025-02-25T00:09:22+09:00</lastmod>
+  </url>
+  <url>
+    <loc>http://localhost:1313/dominion_insight/posts/index.html</loc>
     <lastmod>2025-02-25T00:09:22+09:00</lastmod>
   </url>
   <url>
