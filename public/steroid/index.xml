@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Steroids :: Dominion Insight</title>
+    <title>ステロ :: Dominion Insight</title>
     <link>http://localhost:1313/dominion_insight/steroid/index.html</link>
-    <description></description>
+    <description>少量のアクションのみを用い，デッキの完全な制御を行わない戦術をステロ戦術と呼びます．&#xA;ここでは様々なステロ戦術とプレイする上でのポイントについて，検証を交えながら解説します．</description>
     <generator>Hugo</generator>
     <language>ja</language>
+    <lastBuildDate>Sun, 04 May 2025 02:29:29 +0900</lastBuildDate>
     <atom:link href="http://localhost:1313/dominion_insight/steroid/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>宝飾卵 &#43; 望楼</title>
+      <link>http://localhost:1313/dominion_insight/steroid/juwelled-egg_watchtower/index.html</link>
+      <pubDate>Sun, 04 May 2025 02:29:29 +0900</pubDate>
+      <guid>http://localhost:1313/dominion_insight/steroid/juwelled-egg_watchtower/index.html</guid>
+      <description>概要 望楼を手札に抱えた状態で 2 金を出せば，宝飾卵を獲得してすぐに廃棄し，それにより得られる戦利品をデッキの上に置くことができる． 本記事ではこのトリックを使ってステロをする状況について考察する． 運の振れ幅が大きい戦術ではあるが，平均して 11 ターン程度で属州 4 枚が獲得できる．&#xA;概要 大まかな方針 序盤 (T6 くらいまで) 終盤 検証 継戦能力 戦利品格差 重要な要素 S 尽きぬ杯 杖，宝珠 賞品のヤギ 六分儀 A アンフォラ ハンマー パズルボックス B 宝石 盾 剣 C 船首像 ダブロン金貨 呪符の巻物 D 勲章 アタック耐性 ハンデス ゴミ撒き デッキ破壊 プレイ制限系 初手 2-5 または 5-2 のとき ミラーマッチでの注意点 大まかな方針 初手を望楼 2 枚として，概ね以下の方針でプレイしていく．&#xA;序盤 (T6 くらいまで) 手札に望楼が 2 枚以上あるなら，そのうち 1 枚をプレイしてアクションフェイズを終える．望楼が 1 枚ならプレイしない． 購入フェイズで望楼が手札にあるなら，できるだけ宝飾卵を獲得する．リアクションで即廃棄して戦利品を獲得する． 獲得した戦利品が購入を生まない場合，次のターンに望楼を引く可能性を上げるためデッキトップに戦利品を置かない． 戦利品が購入を生む場合でも，次ターンに望楼を引く可能性が低い場合には望楼を引くのを早めるために戦利品を置かないこともある． 望楼がない場合，6 金で金貨，3 金で銀貨または望楼 (デッキ全体で 3 枚まで) を購入する．うっかり 8 金出てしまったら属州を取っても良い．ここで金貨や銀貨を買っても戦利品の獲得枚数に貢献しないため． 終盤 手札の望楼は基本的にプレイするが，プレイしなくても 8 金以上出て，追加の獲得物をデッキトップに置くことを狙う場合はその限りではない． できるだけ属州を獲得する． 銀貨以上の財宝カードを獲得した場合はデッキの上に置く． 序盤で望楼がない手札がかなり暇であり，このようなターンは 0.5 ターンくらいパスしているようなものである． 通常のステロでは早期に金貨を入れることで次の金貨購入に繋がる好循環があるが，この戦術では戦利品の獲得に 2 金 + 望楼しか必要としないため，序盤で金貨などを素で購入する意味合いが薄い (もちろん最終的に 8 金出すのに貢献するので，金銀もあるに越したことはない)．</description>
+    </item>
   </channel>
 </rss>
