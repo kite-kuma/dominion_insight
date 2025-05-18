@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/dominion_insight/cards/gear/index.html</loc>
+    <lastmod>2025-05-18T20:03:34+09:00</lastmod>
+  </url>
+  <url>
     <loc>http://localhost:1313/dominion_insight/construction/20250515/index.html</loc>
     <lastmod>2025-05-15T18:02:09+09:00</lastmod>
   </url>
