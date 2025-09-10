@@ -2,3 +2,7 @@ baseURL = 'https://kite-kuma.github.io/dominion_insight/'
 languageCode = 'ja'
 title = 'Dominion Insight'
 theme = "Relearn"
+
+[params]
+# Expand all submenu levels in the left sidebar by default
+alwaysopen = true
