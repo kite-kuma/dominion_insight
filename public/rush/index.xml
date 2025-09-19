@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rushes :: Dominion Insight</title>
+    <link>http://localhost:1313/dominion_insight/rush/index.html</link>
+    <description></description>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Fri, 19 Sep 2025 17:00:39 +0900</lastBuildDate>
+    <atom:link href="http://localhost:1313/dominion_insight/rush/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hermit_square</title>
+      <link>http://localhost:1313/dominion_insight/rush/hermit_square/index.html</link>
+      <pubDate>Fri, 19 Sep 2025 17:00:39 +0900</pubDate>
+      <guid>http://localhost:1313/dominion_insight/rush/hermit_square/index.html</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>行進 &#43; 騎兵隊</title>
+      <link>http://localhost:1313/dominion_insight/rush/procession_cavalry/index.html</link>
+      <pubDate>Fri, 19 Sep 2025 16:56:31 +0900</pubDate>
+      <guid>http://localhost:1313/dominion_insight/rush/procession_cavalry/index.html</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

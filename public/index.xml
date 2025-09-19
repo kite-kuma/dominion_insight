@@ -6,8 +6,15 @@
     <description>はじめに このサイトではデッキ構築型カードゲーム『ドミニオン』の戦術について解説します． 画面の左側にある一覧から読みたい記事を選択できます．&#xA;サイトについて，詳しくはこのサイトについてをご覧ください．</description>
     <generator>Hugo</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 15 May 2025 17:52:47 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 19 Sep 2025 17:00:39 +0900</lastBuildDate>
     <atom:link href="http://localhost:1313/dominion_insight/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Rushes</title>
+      <link>http://localhost:1313/dominion_insight/rush/index.html</link>
+      <pubDate>Fri, 19 Sep 2025 17:00:39 +0900</pubDate>
+      <guid>http://localhost:1313/dominion_insight/rush/index.html</guid>
+      <description></description>
+    </item>
     <item>
       <title>構築</title>
       <link>http://localhost:1313/dominion_insight/construction/index.html</link>
