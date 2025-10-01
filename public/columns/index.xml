@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Columns :: Dominion Insight</title>
+    <title>コラム :: Dominion Insight</title>
     <link>http://localhost:1313/dominion_insight/columns/index.html</link>
-    <description></description>
+    <description>私自身による対戦やドミニオン全般について思ったことを書きます． 主観的な感想が多めになります．</description>
     <generator>Hugo</generator>
     <language>ja</language>
-    <lastBuildDate></lastBuildDate>
+    <lastBuildDate>Wed, 01 Oct 2025 18:05:44 +0900</lastBuildDate>
     <atom:link href="http://localhost:1313/dominion_insight/columns/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Stef との連戦</title>
+      <link>http://localhost:1313/dominion_insight/columns/match_against_stef/index.html</link>
+      <pubDate>Wed, 01 Oct 2025 18:05:44 +0900</pubDate>
+      <guid>http://localhost:1313/dominion_insight/columns/match_against_stef/index.html</guid>
+      <description>ある日 (2025 年 9 月 26 日) に Dominion Online でレート戦をしていたとき，Stef 氏とマッチした． レートは 65 前後で，普通ならリーダーボードに載っているほどの実力者であるが，ドミニオンオンラインの開発者であるため掲載されていない． 私も何度か対戦したこともあるが，全く勝てた試しがない．&#xA;Stef 氏は対戦前の挨拶だけでなく，対戦中も，例えば手札が事故ったときに uh-oh などと気さくな感じでチャットしてくる．私は 3 連敗しながらも，チャットとプレイの双方を楽しんでいた．そして迎えた 4 戦目でそれは起こった．&#xA;上のサプライから，出納官で圧縮しつつ工匠で宝物庫を集める方針を選択．ゲーム開始時点で発進と宝物庫の組み合わせに気付いていたので，宝物庫を打ったターンで意気揚々と発進すると，なぜか宝物庫が 1 ドローの後にデッキに載ってしまう．&#xA;ドロー後の undo はしない/認めない主義なのでとりあえず続行することにしたが，なぜ宝物庫を引く動きにならないのか不思議に思いながらゲームが進行していく．これなんでダメなんだろうか．2 回目も失敗したら Stef にチャットで訊いてみよう．</description>
+    </item>
   </channel>
 </rss>

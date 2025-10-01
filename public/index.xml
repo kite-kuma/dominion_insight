@@ -6,21 +6,21 @@
     <description>はじめに このサイトではデッキ構築型カードゲーム『ドミニオン』の戦術について解説します． 画面の左側にある一覧から読みたい記事を選択できます．&#xA;サイトについて，詳しくはこのサイトについてをご覧ください．</description>
     <generator>Hugo</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 01 Oct 2025 18:39:53 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 01 Oct 2025 19:27:15 +0900</lastBuildDate>
     <atom:link href="http://localhost:1313/dominion_insight/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Dominion Online</title>
+      <title>コラム</title>
+      <link>http://localhost:1313/dominion_insight/columns/index.html</link>
+      <pubDate>Wed, 01 Oct 2025 19:27:15 +0900</pubDate>
+      <guid>http://localhost:1313/dominion_insight/columns/index.html</guid>
+      <description>私自身による対戦やドミニオン全般について思ったことを書きます． 主観的な感想が多めになります．</description>
+    </item>
+    <item>
+      <title>Dominion Online について</title>
       <link>http://localhost:1313/dominion_insight/dominion_online/index.html</link>
       <pubDate>Wed, 01 Oct 2025 18:39:53 +0900</pubDate>
       <guid>http://localhost:1313/dominion_insight/dominion_online/index.html</guid>
       <description>Dominion Online に特有の仕様などについて解説します．</description>
-    </item>
-    <item>
-      <title>Columns</title>
-      <link>http://localhost:1313/dominion_insight/columns/index.html</link>
-      <pubDate>Wed, 01 Oct 2025 18:05:44 +0900</pubDate>
-      <guid>http://localhost:1313/dominion_insight/columns/index.html</guid>
-      <description></description>
     </item>
     <item>
       <title>構築</title>
