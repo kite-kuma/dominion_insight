@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Dominion Online について :: Dominion Insight</title>
+    <link>http://localhost:1313/dominion_insight/dominion_online/index.html</link>
+    <description>Dominion Online に特有の仕様などについて解説します．</description>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Wed, 01 Oct 2025 18:07:38 +0900</lastBuildDate>
+    <atom:link href="http://localhost:1313/dominion_insight/dominion_online/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>フェイズ戻り周辺に関するバグ</title>
+      <link>http://localhost:1313/dominion_insight/dominion_online/phase_switching_bug/index.html</link>
+      <pubDate>Wed, 01 Oct 2025 18:07:38 +0900</pubDate>
+      <guid>http://localhost:1313/dominion_insight/dominion_online/phase_switching_bug/index.html</guid>
+      <description>概要 Dominion Online (以下オンライン) には正しいルールと整合的でない挙動を示す部分がわずかにある． 今回はその中からフェイズ戻りに関するものを紹介する． これはカードの処理の途中でフェイズの変更がなされないことによるものである．&#xA;2022 年エラッタ まずは今回の話を理解するための前提を説明する．&#xA;ドミニオンの一部のカードやイベントには購入フェイズからアクションフェイズに戻る効果を持つものがある． ヴィラ，騎兵隊，発進，継続などが該当する． また，一部のカードなどは購入フェイズの終了時に誘発する効果をもつ． ワイン商，商人ギルド，隠遁者，野外劇などが該当する．&#xA;以前は購入フェイズからアクションフェイズに戻る際に購入フェイズの終了時に誘発する効果が誘発されなかったが，2022 年エラッタにより誘発するようにルールの変更がなされた．&#xA;バグの内容 購入フェイズからアクションフェイズに戻る効果を持つカードのうち，テキストと処理順が異なるものがある． 特に，フェイズの切り替わりのタイミングが正しい挙動と異なっている．&#xA;具体例 発進 カードテキスト：&#xA;1 ターンに 1 度のみ：アクションフェイズに戻る。+1 カードを引く、+1 アクション、+1 購入。&#xA;オンラインでの実際の挙動：&#xA;1 ターンに 1 度のみ：+1 カードを引く、+1 アクション、+1 購入。アクションフェイズに戻る。&#xA;例えば宝物庫使用 → 発進とした場合，本来のルールでは購入フェイズが先に終了するので，デッキ上に移動する宝物庫を発進の 1 ドローで引くことになる．対してオンラインでは先に 1 ドローしてから宝物庫をデッキに載せることになる．&#xA;継続 カードテキスト：&#xA;1 ターンに 1 度のみ：アタックでないコスト 4 以下のアクションカード 1 枚を獲得する。 アクションフェイズに戻り、それを使用する。+1 アクション、+1 購入。&#xA;オンラインでの実際の挙動：&#xA;1 ターンに 1 度のみ：アタックでないコスト 4 以下のアクションカード 1 枚を獲得する；それを使用する。+1 アクション、+1 購入。アクションフェイズに戻る。&#xA;発進と同様に，アクションフェイズに戻るのが一連の処理の最後となっている．&#xA;購入フェイズの終了時に誘発する効果に関連しないものを挙げると，以下のような違いもある．</description>
+    </item>
+  </channel>
+</rss>

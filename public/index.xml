@@ -6,8 +6,22 @@
     <description>はじめに このサイトではデッキ構築型カードゲーム『ドミニオン』の戦術について解説します． 画面の左側にある一覧から読みたい記事を選択できます．&#xA;サイトについて，詳しくはこのサイトについてをご覧ください．</description>
     <generator>Hugo</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 15 May 2025 17:52:47 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 01 Oct 2025 18:39:53 +0900</lastBuildDate>
     <atom:link href="http://localhost:1313/dominion_insight/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Dominion Online</title>
+      <link>http://localhost:1313/dominion_insight/dominion_online/index.html</link>
+      <pubDate>Wed, 01 Oct 2025 18:39:53 +0900</pubDate>
+      <guid>http://localhost:1313/dominion_insight/dominion_online/index.html</guid>
+      <description>Dominion Online に特有の仕様などについて解説します．</description>
+    </item>
+    <item>
+      <title>Columns</title>
+      <link>http://localhost:1313/dominion_insight/columns/index.html</link>
+      <pubDate>Wed, 01 Oct 2025 18:05:44 +0900</pubDate>
+      <guid>http://localhost:1313/dominion_insight/columns/index.html</guid>
+      <description></description>
+    </item>
     <item>
       <title>構築</title>
       <link>http://localhost:1313/dominion_insight/construction/index.html</link>
@@ -42,13 +56,6 @@
       <pubDate>Tue, 25 Feb 2025 00:09:22 +0900</pubDate>
       <guid>http://localhost:1313/dominion_insight/steroid/index.html</guid>
       <description>少量のアクションのみを用い，デッキの完全な制御を行わない戦術をステロ戦術と呼びます．&#xA;ここでは様々なステロ戦術とプレイする上でのポイントについて，検証を交えながら解説します．</description>
-    </item>
-    <item>
-      <title>高難易度コンボ</title>
-      <link>http://localhost:1313/dominion_insight/rush/index.html</link>
-      <pubDate>Tue, 25 Feb 2025 00:09:22 +0900</pubDate>
-      <guid>http://localhost:1313/dominion_insight/rush/index.html</guid>
-      <description>初見で回すのが難しいコンボについて，そのコツを解説します．記事は準備中です．</description>
     </item>
   </channel>
 </rss>
