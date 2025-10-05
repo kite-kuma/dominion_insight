@@ -57,5 +57,12 @@
       <guid>http://localhost:1313/dominion_insight/steroid/index.html</guid>
       <description>少量のアクションのみを用い，デッキの完全な制御を行わない戦術をステロ戦術と呼びます．&#xA;ここでは様々なステロ戦術とプレイする上でのポイントについて，検証を交えながら解説します．</description>
     </item>
+    <item>
+      <title>高難易度コンボ</title>
+      <link>http://localhost:1313/dominion_insight/rush/index.html</link>
+      <pubDate>Tue, 25 Feb 2025 00:09:22 +0900</pubDate>
+      <guid>http://localhost:1313/dominion_insight/rush/index.html</guid>
+      <description>初見で回すのが難しいコンボについて，そのコツを解説します．記事は準備中です．</description>
+    </item>
   </channel>
 </rss>
