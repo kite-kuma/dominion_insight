@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/dominion_insight/rules/index.html</loc>
-    <lastmod>2025-12-17T20:38:19+09:00</lastmod>
-  </url>
-  <url>
-    <loc>http://localhost:1313/dominion_insight/rules/confusing_rules/index.html</loc>
-    <lastmod>2025-12-17T20:38:19+09:00</lastmod>
-  </url>
-  <url>
     <loc>http://localhost:1313/dominion_insight/columns/index.html</loc>
     <lastmod>2025-10-01T19:27:15+09:00</lastmod>
   </url>
@@ -23,18 +15,6 @@
   <url>
     <loc>http://localhost:1313/dominion_insight/columns/match_against_stef/index.html</loc>
     <lastmod>2025-10-01T18:05:44+09:00</lastmod>
-  </url>
-  <url>
-    <loc>http://localhost:1313/dominion_insight/cards/black_market/index.html</loc>
-    <lastmod>2025-09-20T08:24:42+09:00</lastmod>
-  </url>
-  <url>
-    <loc>http://localhost:1313/dominion_insight/rush/hermit_square/index.html</loc>
-    <lastmod>2025-09-19T17:00:39+09:00</lastmod>
-  </url>
-  <url>
-    <loc>http://localhost:1313/dominion_insight/rush/procession_cavalry/index.html</loc>
-    <lastmod>2025-09-19T16:56:31+09:00</lastmod>
   </url>
   <url>
     <loc>http://localhost:1313/dominion_insight/cards/diplomat/index.html</loc>
@@ -61,10 +41,6 @@
     <lastmod>2025-05-23T19:04:05+09:00</lastmod>
   </url>
   <url>
-    <loc>http://localhost:1313/dominion_insight/cards/gear/index.html</loc>
-    <lastmod>2025-05-18T20:03:34+09:00</lastmod>
-  </url>
-  <url>
     <loc>http://localhost:1313/dominion_insight/construction/20250515/index.html</loc>
     <lastmod>2025-05-15T18:02:09+09:00</lastmod>
   </url>
@@ -81,10 +57,6 @@
     <lastmod>2025-05-04T02:29:29+09:00</lastmod>
   </url>
   <url>
-    <loc>http://localhost:1313/dominion_insight/cards/strong_card_list/index.html</loc>
-    <lastmod>2025-02-26T02:16:49+09:00</lastmod>
-  </url>
-  <url>
     <loc>http://localhost:1313/dominion_insight/strategy_cotegorization/index.html</loc>
     <lastmod>2025-02-26T01:12:10+09:00</lastmod>
   </url>
@@ -97,19 +69,11 @@
     <lastmod>2025-02-25T00:09:22+09:00</lastmod>
   </url>
   <url>
-    <loc>http://localhost:1313/dominion_insight/cards/souk/index.html</loc>
-    <lastmod>2025-02-25T00:09:22+09:00</lastmod>
-  </url>
-  <url>
     <loc>http://localhost:1313/dominion_insight/steroid/index.html</loc>
     <lastmod>2025-02-25T00:09:22+09:00</lastmod>
   </url>
   <url>
     <loc>http://localhost:1313/dominion_insight/index.html</loc>
-    <lastmod>2025-02-25T00:09:22+09:00</lastmod>
-  </url>
-  <url>
-    <loc>http://localhost:1313/dominion_insight/rush/index.html</loc>
     <lastmod>2025-02-25T00:09:22+09:00</lastmod>
   </url>
   <url>

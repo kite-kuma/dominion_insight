@@ -70,33 +70,6 @@ function debounce(func, delay) {
   };
 }
 
-// Toast notification system
-function showToast(message) {
-  if (!message) return;
-
-  var container = document.getElementById('toast-container');
-  if (!container) return;
-
-  var toast = document.createElement('div');
-  toast.className = 'toast';
-  toast.setAttribute('role', 'status');
-  toast.setAttribute('aria-atomic', 'true');
-  toast.textContent = message;
-
-  container.appendChild(toast);
-
-  setTimeout(function () {
-    toast.classList.add('toast-hiding');
-    setTimeout(function () {
-      if (toast.parentNode) {
-        toast.parentNode.removeChild(toast);
-      }
-    }, 300); // Match the fade-out animation duration
-  }, 2000);
-}
-
-window.relearn.showToast = showToast;
-
 function fixCodeTabs() {
   /* if only a single code block is contained in the tab and no style was selected, treat it like style=code */
   var codeTabContents = Array.from(document.querySelectorAll('.tab-content.tab-panel-style')).filter(function (tabContent) {
@@ -153,13 +126,11 @@ function switchTab(tabGroup, tabId) {
   allTabItems &&
     allTabItems.forEach(function (e) {
       e.classList.remove('active');
-      e.setAttribute('aria-expanded', 'false');
       e.removeAttribute('tabindex');
     });
   targetTabItems &&
     targetTabItems.forEach(function (e) {
       e.classList.add('active');
-      e.setAttribute('aria-expanded', 'true');
       e.setAttribute('tabindex', '-1');
     });
 
@@ -172,21 +143,21 @@ function switchTab(tabGroup, tabId) {
 
     // Store the selection to make it persistent
     if (window.localStorage) {
-      var selectionsJSON = window.relearn.getItem(window.localStorage, window.relearn.absBaseUri + '/tab-selections');
+      var selectionsJSON = window.localStorage.getItem(window.relearn.absBaseUri + '/tab-selections');
       if (selectionsJSON) {
         var tabSelections = JSON.parse(selectionsJSON);
       } else {
         var tabSelections = {};
       }
       tabSelections[tabGroup] = tabId;
-      window.relearn.setItem(window.localStorage, window.relearn.absBaseUri + '/tab-selections', JSON.stringify(tabSelections));
+      window.localStorage.setItem(window.relearn.absBaseUri + '/tab-selections', JSON.stringify(tabSelections));
     }
   }
 }
 
 function restoreTabSelections() {
   if (window.localStorage) {
-    var selectionsJSON = window.relearn.getItem(window.localStorage, window.relearn.absBaseUri + '/tab-selections');
+    var selectionsJSON = window.localStorage.getItem(window.relearn.absBaseUri + '/tab-selections');
     if (selectionsJSON) {
       var tabSelections = JSON.parse(selectionsJSON);
     } else {
@@ -200,9 +171,6 @@ function restoreTabSelections() {
 }
 
 function initMermaid(update, attrs) {
-  if (!window.relearn.themeUseMermaid) {
-    return;
-  }
   var doBeside = true;
   var isImageRtl = isRtl;
 
@@ -271,18 +239,13 @@ function initMermaid(update, attrs) {
 
       var graph = encodeHTML(serializeGraph(parse));
       var new_element = document.createElement('div');
-      var hasActionbarWrapper = element.classList.contains('actionbar-wrapper');
       Array.from(element.attributes).forEach(function (attr) {
         new_element.setAttribute(attr.name, attr.value);
         element.removeAttribute(attr.name);
       });
       new_element.classList.add('mermaid-container');
       new_element.classList.remove('mermaid');
-      new_element.classList.remove('actionbar-wrapper');
       element.classList.add('mermaid');
-      if (hasActionbarWrapper) {
-        element.classList.add('actionbar-wrapper');
-      }
 
       element.innerHTML = graph;
       if (element.offsetParent !== null) {
@@ -359,7 +322,9 @@ function initMermaid(update, attrs) {
     theme: getColorValue('MERMAID-theme'),
   };
 
+  var search;
   if (update) {
+    search = sessionStorage.getItem(window.relearn.absBaseUri + '/search-value');
     unmark();
   }
   var is_initialized = update ? update_func(attrs) : init_func(attrs);
@@ -379,47 +344,41 @@ function initMermaid(update, attrs) {
           var svg = d3.select(this);
           svg.html('<g>' + svg.html() + '</g>');
           var inner = svg.select('*:scope > g');
-          parent.insertAdjacentHTML('beforeend', '<div class="actionbar"><span class="btn cstyle svg-reset-button action noborder notitle interactive"><button type="button" title="' + window.T_Reset_view + '"><i class="fa-fw fas fa-undo-alt"></i></button></span></div>');
-          var wrapper = parent.querySelector('.svg-reset-button');
-          var button = wrapper.querySelector('button');
+          parent.insertAdjacentHTML('beforeend', '<button class="svg-reset-button" title="' + window.T_Reset_view + '"><i class="fas fa-undo-alt"></i></button>');
+          var button = parent.querySelector('.svg-reset-button');
           var zoom = d3.zoom().on('zoom', function (e) {
             inner.attr('transform', e.transform);
             if (e.transform.k == 1 && e.transform.x == 0 && e.transform.y == 0) {
-              wrapper.classList.remove('zoomed');
+              button.classList.remove('zoomed');
             } else {
-              wrapper.classList.add('zoomed');
+              button.classList.add('zoomed');
             }
           });
-          button.addEventListener('click', function () {
-            this.blur();
+          button.addEventListener('click', function (event) {
             svg.transition().duration(350).call(zoom.transform, d3.zoomIdentity);
-            showToast(window.T_View_reset);
+            this.setAttribute('aria-label', window.T_View_reset);
+            this.classList.add('tooltipped', 'tooltipped-' + (doBeside ? '' : 's') + (isImageRtl ? 'e' : 'w'));
+          });
+          button.addEventListener('mouseleave', function () {
+            if (this.classList.contains('tooltipped')) {
+              this.classList.remove('tooltipped', 'tooltipped-w', 'tooltipped-se', 'tooltipped-sw');
+              this.removeAttribute('aria-label');
+            }
           });
           svg.call(zoom);
         });
-        // we need to mark again once the SVGs were drawn
-        // to mark terms inside an SVG;
-        // as we can not determine when all graphs are done,
-        // we debounce the call
-        debounce(mark, 200)();
       },
       querySelector: '.mermaid.mermaid-render',
       suppressErrors: true,
     });
   }
-  if (update) {
-    // if the page loads Mermaid but does not contain any
-    // graphs, we will not call the above debounced mark()
-    // and have to do it at least once here to redo our unmark()
-    // call from the beginning of this function
-    debounce(mark, 200)();
+  if (update && search && search.length) {
+    sessionStorage.setItem(window.relearn.absBaseUri + '/search-value', search);
+    mark();
   }
 }
 
 function initOpenapi(update, attrs) {
-  if (!window.relearn.themeUseOpenapi) {
-    return;
-  }
   var state = this;
   if (update && !state.is_initialized) {
     return;
@@ -449,7 +408,7 @@ function initOpenapi(update, attrs) {
   function getFirstAncestorByClass() {}
   function renderOpenAPI(oc) {
     var relBasePath = window.relearn.relBasePath;
-    var assetBuster = window.relearn.themeUseOpenapi.assetsBuster;
+    var assetBuster = window.themeUseOpenapi.assetsBuster;
     var print = isPrint || isPrintPreview ? 'PRINT-' : '';
     var format = print ? `print` : `html`;
     var min = window.relearn.min;
@@ -472,36 +431,7 @@ function initOpenapi(update, attrs) {
     const oi = document.createElement('iframe');
     oi.id = openapiIframeId;
     oi.classList.toggle('sc-openapi-iframe', true);
-    oi.srcdoc = `<!doctype html>
-<html class="relearn ${swagger_theme}-mode" lang="${lang}" dir="${isRtl ? 'rtl' : 'ltr'}" data-r-output-format="${format}" data-r-theme-variant="${variant}">
-  <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="${window.relearn.themeUseOpenapi.css}${assetBuster}">
-    <link rel="stylesheet" href="${relBasePath}/css/swagger${min}.css${assetBuster}">
-    <link rel="stylesheet" href="${theme}">
-    <script>
-      function relearn_expand_all() {
-        document.querySelectorAll(".expand-operation[aria-expanded=false]").forEach(btn => btn.click());
-        document.querySelectorAll(".models-control[aria-expanded=false]").forEach(btn => btn.click());
-        document.querySelectorAll(".opblock-summary-control[aria-expanded=false]").forEach(btn => btn.click());
-        document.querySelectorAll(".model-container > .model-box > button[aria-expanded=false]").forEach(btn => btn.click());
-        return false;
-      }
-      function relearn_collapse_all() {
-        document.querySelectorAll(".expand-operation[aria-expanded=true]").forEach(btn => btn.click());
-        document.querySelectorAll(".models-control[aria-expanded=true]").forEach(btn => btn.click());
-        document.querySelectorAll(".opblock-summary-control[aria-expanded=true]").forEach(btn => btn.click());
-        document.querySelectorAll(".model-container > .model-box > .model-box > .model > span > button[aria-expanded=true]").forEach(btn => btn.click());
-        return false;
-      }
-    </script>
-  </head>
-  <body>
-    <a class="relearn-expander" href="" onclick="return relearn_collapse_all()">Collapse all</a>
-    <a class="relearn-expander" href="" onclick="return relearn_expand_all()">Expand all</a>
-    <div id="relearn-swagger-ui"></div>
-  </body>
-</html>`;
+    oi.srcdoc = '<!doctype html>' + '<html lang="' + lang + '" dir="' + (isRtl ? 'rtl' : 'ltr') + '" data-r-output-format="' + format + '" data-r-theme-variant="' + variant + '">' + '<head>' + '<link rel="stylesheet" href="' + window.themeUseOpenapi.css + '">' + '<link rel="stylesheet" href="' + relBasePath + `/css/swagger${min}.css` + assetBuster + '">' + '<link rel="stylesheet" href="' + relBasePath + '/css/swagger-' + swagger_theme + '.css' + assetBuster + '">' + '<link rel="stylesheet" href="' + theme + '">' + '</head>' + '<body>' + '<a class="relearn-expander" href="" onclick="return relearn_collapse_all()">Collapse all</a>' + '<a class="relearn-expander" href="" onclick="return relearn_expand_all()">Expand all</a>' + '<div id="relearn-swagger-ui"></div>' + '<script>' + 'function relearn_expand_all(){' + 'document.querySelectorAll( ".expand-operation[aria-expanded=false]" ).forEach( btn => btn.click() );' + 'document.querySelectorAll( ".models-control[aria-expanded=false]" ).forEach( btn => btn.click() );' + 'document.querySelectorAll( ".opblock-summary-control[aria-expanded=false]" ).forEach( btn => btn.click() );' + 'document.querySelectorAll( ".model-container > .model-box > button[aria-expanded=false]" ).forEach( btn => btn.click() );' + 'return false;' + '}' + 'function relearn_collapse_all(){' + 'document.querySelectorAll( ".expand-operation[aria-expanded=true]" ).forEach( btn => btn.click() );' + 'document.querySelectorAll( ".models-control[aria-expanded=true]" ).forEach( btn => btn.click() );' + 'document.querySelectorAll( ".opblock-summary-control[aria-expanded=true]" ).forEach( btn => btn.click() );' + 'document.querySelectorAll( ".model-container > .model-box > .model-box > .model > span > button[aria-expanded=true]" ).forEach( btn => btn.click() );' + 'return false;' + '}' + '</script>' + '</body>' + '</html>';
     oi.height = '100%';
     oi.width = '100%';
     oi.onload = function () {
@@ -601,31 +531,51 @@ function initOpenapi(update, attrs) {
 }
 
 function initAnchorClipboard() {
-  const url = document.location.origin == 'null' ? `${document.location.protocol}//${document.location.host}${document.location.pathname}` : `${document.location.origin}${document.location.pathname}`;
+  if (window.relearn.disableAnchorCopy && window.relearn.disableAnchorScrolling) {
+    return;
+  }
 
-  const anchors = Array.from(document.querySelectorAll('.anchor'));
-  for (const anchor of anchors) {
-    const id = encodeURIComponent(anchor.parentElement.id);
-    anchor.setAttribute('data-clipboard-text', `${url}#${id}`);
+  document.querySelectorAll(':has(h1) :is(h2[id], h3[id], h4[id] , h5[id], h6[id])').forEach(function (element) {
+    var url = encodeURI((document.location.origin == 'null' ? document.location.protocol + '//' + document.location.host : document.location.origin) + document.location.pathname);
+    var link = url + '#' + element.id;
+    var new_element = document.createElement('button');
+    new_element.classList.add('anchor');
+    if (!window.relearn.disableAnchorCopy) {
+      new_element.setAttribute('title', window.T_Copy_link_to_clipboard);
+    }
+    new_element.setAttribute('data-clipboard-text', link);
+    new_element.innerHTML = '<i class="fas fa-link fa-lg"></i>';
+    element.appendChild(new_element);
+  });
 
-    if (anchor.classList.contains('copyanchor')) {
-      anchor.addEventListener('click', function () {
-        this.blur();
-        if (!navigator.clipboard?.writeText) {
-          showToast(window.T_Browser_unsupported_feature);
-          return;
-        }
-        const text = this.getAttribute('data-clipboard-text');
-        navigator.clipboard.writeText(text);
-        showToast(window.T_Link_copied_to_clipboard);
+  var anchors = document.querySelectorAll('.anchor');
+  if (!window.relearn.disableAnchorCopy) {
+    for (var i = 0; i < anchors.length; i++) {
+      anchors[i].addEventListener('mouseleave', function (e) {
+        this.removeAttribute('aria-label');
+        this.classList.remove('tooltipped', 'tooltipped-se', 'tooltipped-sw');
       });
     }
-    if (anchor.classList.contains('scrollanchor')) {
-      anchor.addEventListener('click', function () {
-        this.parentElement.scrollIntoView({ behavior: 'smooth' });
-        let state = window.history.state || {};
+
+    var clip = new ClipboardJS('.anchor');
+    clip.on('success', function (e) {
+      e.clearSelection();
+      e.trigger.setAttribute('aria-label', window.T_Link_copied_to_clipboard);
+      e.trigger.classList.add('tooltipped', 'tooltipped-s' + (isRtl ? 'e' : 'w'));
+      if (!window.relearn.disableAnchorScrolling) {
+        e.trigger.parentElement.scrollIntoView({ behavior: 'smooth' });
+        var state = window.history.state || {};
         state = Object.assign({}, typeof state === 'object' ? state : {});
-        history.pushState({}, '', this.dataset.clipboardText);
+        history.replaceState({}, '', e.text);
+      }
+    });
+  } else if (!window.relearn.disableAnchorScrolling) {
+    for (var i = 0; i < anchors.length; i++) {
+      anchors[i].addEventListener('click', function (e) {
+        e.target.parentElement.parentElement.scrollIntoView({ behavior: 'smooth' });
+        var state = window.history.state || {};
+        state = Object.assign({}, typeof state === 'object' ? state : {});
+        history.replaceState({}, '', e.text);
       });
     }
   }
@@ -643,6 +593,19 @@ function initCodeClipboard() {
     // come from the browser / Hugo transformation
     text = text.replace(/\n$/, '');
     return text;
+  }
+
+  function fallbackMessage(action) {
+    var actionMsg = '';
+    var actionKey = action === 'cut' ? 'X' : 'C';
+    if (/iPhone|iPad/i.test(navigator.userAgent)) {
+      actionMsg = 'No support :(';
+    } else if (/Mac/i.test(navigator.userAgent)) {
+      actionMsg = 'Press ⌘-' + actionKey + ' to ' + action;
+    } else {
+      actionMsg = 'Press Ctrl-' + actionKey + ' to ' + action;
+    }
+    return actionMsg;
   }
 
   document.addEventListener('copy', function (ev) {
@@ -705,15 +668,6 @@ function initCodeClipboard() {
     // avoid copy-to-clipboard for highlight shortcode in table lineno mode
     var isFirstLineCell = inTable && code.parentNode.parentNode.parentNode.querySelector('td:first-child > pre > code') == code;
     var isBlock = inTable || inPre;
-    var inHeading = false;
-    var parent = code.parentNode;
-    while (parent && parent !== document) {
-      if (/^h[1-6]$/i.test(parent.tagName)) {
-        inHeading = true;
-        break;
-      }
-      parent = parent.parentNode;
-    }
 
     if (!isFirstLineCell && (inPre || text.length > 5)) {
       code.classList.add('copy-to-clipboard-code');
@@ -730,37 +684,37 @@ function initCodeClipboard() {
         code = clone;
       }
       var button = null;
-      var insertElement = null;
-      var wrapper = null;
-      var actionbar = null;
-      if (isBlock || (!window.relearn.disableInlineCopyToClipboard && !inHeading)) {
+      if (isBlock || !window.relearn.disableInlineCopyToClipboard) {
         button = document.createElement('button');
-        button.type = 'button';
+        var buttonPrefix = isBlock ? 'block' : 'inline';
+        button.classList.add(buttonPrefix + '-copy-to-clipboard-button');
         button.setAttribute('title', window.T_Copy_to_clipboard);
-
+        button.innerHTML = '<i class="far fa-copy"></i>';
+        button.addEventListener('mouseleave', function () {
+          this.removeAttribute('aria-label');
+          this.classList.remove('tooltipped', 'tooltipped-w', 'tooltipped-se', 'tooltipped-sw');
+        });
         if (isBlock) {
-          // Wrap in actionbar structure for block buttons
-          button.innerHTML = '<i class="fa-fw far fa-copy"></i>';
-          wrapper = document.createElement('span');
-          wrapper.classList.add('btn', 'cstyle', 'block-copy-to-clipboard-button', 'action', 'noborder', 'notitle', 'interactive');
-          wrapper.appendChild(button);
-          actionbar = document.createElement('div');
-          actionbar.className = 'actionbar';
-          actionbar.appendChild(wrapper);
-          insertElement = actionbar;
-        } else {
-          // Wrap in btn structure for inline buttons
-          button.innerHTML = '<i class="fa-fw far fa-copy"></i>';
-          wrapper = document.createElement('span');
-          wrapper.classList.add('btn', 'cstyle', 'inline-copy-to-clipboard-button', 'inline', 'notitle', 'interactive');
-          wrapper.appendChild(button);
-          insertElement = wrapper;
+          // we have to make sure, the button is visible while
+          // Clipboard.js is doing its magic
+          button.addEventListener('focus', function (ev) {
+            setTimeout(function () {
+              ev.target.classList.add('force-display');
+            }, 0);
+          });
+          button.addEventListener('blur', function (ev) {
+            this.removeAttribute('aria-label');
+            this.classList.remove('tooltipped', 'tooltipped-w', 'tooltipped-se', 'tooltipped-sw');
+            setTimeout(function () {
+              ev.target.classList.remove('force-display');
+            }, 0);
+          });
         }
       }
       if (inTable) {
         var table = code.parentNode.parentNode.parentNode.parentNode.parentNode;
         table.dataset.code = text;
-        table.parentNode.insertBefore(insertElement, table.nextSibling);
+        table.parentNode.insertBefore(button, table.nextSibling);
       } else if (inPre) {
         var pre = code.parentNode;
         pre.dataset.code = text;
@@ -772,43 +726,56 @@ function initCodeClipboard() {
         if (p == document) {
           var clone = pre.cloneNode(true);
           var div = document.createElement('div');
-          div.classList.add('highlight', 'actionbar-wrapper');
+          div.classList.add('highlight');
+          div.setAttribute('dir', 'auto');
           if (window.relearn.enableBlockCodeWrap) {
             div.classList.add('wrap-code');
           }
-          div.setAttribute('dir', 'auto');
           div.appendChild(clone);
           pre.parentNode.replaceChild(div, pre);
           pre = clone;
         }
-        pre.parentNode.insertBefore(insertElement, pre.nextSibling);
+        pre.parentNode.insertBefore(button, pre.nextSibling);
       } else {
         code.classList.add('highlight');
         code.dataset.code = text;
-        if (insertElement) {
-          code.parentNode.insertBefore(insertElement, code.nextSibling);
+        if (button) {
+          code.parentNode.insertBefore(button, code.nextSibling);
         }
       }
     }
   }
 
-  var buttons = document.querySelectorAll('.block-copy-to-clipboard-button button, .inline-copy-to-clipboard-button button');
-  buttons.forEach(function (button) {
-    button.addEventListener('click', function () {
-      this.blur();
-      if (!navigator.clipboard?.writeText) {
-        showToast(window.T_Browser_unsupported_feature);
-        return;
+  var clip = new ClipboardJS('.block-copy-to-clipboard-button, .inline-copy-to-clipboard-button', {
+    text: function (trigger) {
+      if (!trigger.previousElementSibling) {
+        return '';
       }
-      // For block buttons, get the actionbar's previous sibling; for inline, use wrapper's previous sibling
-      var codeElement = this.closest('.actionbar') ? this.closest('.actionbar').previousElementSibling : this.parentElement.previousElementSibling;
-      if (!codeElement) {
-        return;
-      }
-      var text = codeElement.dataset.code || '';
-      navigator.clipboard.writeText(text);
-      showToast(window.T_Copied_to_clipboard);
-    });
+      return trigger.previousElementSibling.dataset.code || '';
+    },
+  });
+
+  clip.on('success', function (e) {
+    e.clearSelection();
+    var inPre = e.trigger.previousElementSibling && e.trigger.previousElementSibling.tagName.toLowerCase() == 'pre';
+    var isCodeRtl = window.getComputedStyle(e.trigger).direction == 'rtl';
+    var doBeside = inPre || (e.trigger.previousElementSibling && e.trigger.previousElementSibling.tagName.toLowerCase() == 'table');
+    e.trigger.setAttribute('aria-label', window.T_Copied_to_clipboard);
+    e.trigger.classList.add('tooltipped', 'tooltipped-' + (doBeside ? '' : 's') + (isCodeRtl ? 'e' : 'w'));
+  });
+
+  clip.on('error', function (e) {
+    var inPre = e.trigger.previousElementSibling && e.trigger.previousElementSibling.tagName.toLowerCase() == 'pre';
+    var isCodeRtl = window.getComputedStyle(e.trigger).direction == 'rtl';
+    var doBeside = inPre || (e.trigger.previousElementSibling && e.trigger.previousElementSibling.tagName.toLowerCase() == 'table');
+    e.trigger.setAttribute('aria-label', fallbackMessage(e.action));
+    e.trigger.classList.add('tooltipped', 'tooltipped-' + (doBeside ? '' : 's') + (isCodeRtl ? 'e' : 'w'));
+    var f = function () {
+      e.trigger.setAttribute('aria-label', window.T_Copied_to_clipboard);
+      e.trigger.classList.add('tooltipped', 'tooltipped-' + (doBeside ? '' : 's') + (isCodeRtl ? 'e' : 'w'));
+      document.removeEventListener('copy', f);
+    };
+    document.addEventListener('copy', f);
   });
 }
 
@@ -872,7 +839,9 @@ function initArrowHorizontalNav() {
 
   // button navigation
   var prev = document.querySelector('.topbar-button-prev a');
+  prev && prev.addEventListener('click', navPrev);
   var next = document.querySelector('.topbar-button-next a');
+  next && next.addEventListener('click', navNext);
 
   // keyboard navigation
   // avoid prev/next navigation if we are not at the start/end of the
@@ -1230,6 +1199,16 @@ function showPrint() {
   }
 }
 
+function navPrev() {
+  var e = document.querySelector('.topbar-button-prev a');
+  location.href = e && e.getAttribute('href');
+}
+
+function navNext() {
+  var e = document.querySelector('.topbar-button-next a');
+  location.href = e && e.getAttribute('href');
+}
+
 function initToc() {
   if (isPrint) {
     return;
@@ -1319,14 +1298,14 @@ function initExpand() {
 
 function clearHistory() {
   var visitedItem = window.relearn.absBaseUri + '/visited-url/';
-  for (var item in window.sessionStorage) {
+  for (var item in sessionStorage) {
     if (item.substring(0, visitedItem.length) === visitedItem) {
-      window.relearn.removeItem(window.sessionStorage, item);
+      sessionStorage.removeItem(item);
       var url = item.substring(visitedItem.length);
       // in case we have `relativeURLs=true` we have to strip the
       // relative path to root
       url = url.replace(/\.\.\//g, '/').replace(/^\/+\//, '/');
-      document.querySelectorAll('[data-nav-url="' + url + '"]').forEach(function (e) {
+      document.querySelectorAll('[data-nav-id="' + url + '"]').forEach(function (e) {
         e.classList.remove('visited');
       });
     }
@@ -1335,16 +1314,16 @@ function clearHistory() {
 
 function initHistory() {
   var visitedItem = window.relearn.absBaseUri + '/visited-url/';
-  window.relearn.setItem(window.sessionStorage, visitedItem + document.querySelector('body').dataset.url, 1);
+  sessionStorage.setItem(visitedItem + document.querySelector('body').dataset.url, 1);
 
   // loop through the sessionStorage and see if something should be marked as visited
-  for (var item in window.sessionStorage) {
-    if (item.substring(0, visitedItem.length) === visitedItem && window.relearn.getItem(window.sessionStorage, item) == 1) {
+  for (var item in sessionStorage) {
+    if (item.substring(0, visitedItem.length) === visitedItem && sessionStorage.getItem(item) == 1) {
       var url = item.substring(visitedItem.length);
       // in case we have `relativeURLs=true` we have to strip the
       // relative path to root
       url = url.replace(/\.\.\//g, '/').replace(/^\/+\//, '/');
-      document.querySelectorAll('[data-nav-url="' + url + '"]').forEach(function (e) {
+      document.querySelectorAll('[data-nav-id="' + url + '"]').forEach(function (e) {
         e.classList.add('visited');
       });
     }
@@ -1361,7 +1340,7 @@ function initScrollPositionSaver() {
     var state = window.history.state || {};
     state = Object.assign({}, typeof state === 'object' ? state : {});
     state.contentScrollTop = +elc.scrollTop;
-    window.history.replaceState(state, '');
+    window.history.replaceState(state, '', window.location);
   }
 
   var ticking = false;
@@ -1407,10 +1386,10 @@ function scrollToPositions() {
     return;
   }
 
-  var search = window.relearn.getItem(window.sessionStorage, window.relearn.absBaseUri + '/search-value');
-  var words = (search ?? '').split(' ').filter((word) => word.trim() != '');
-  if (words && words.length) {
-    var found = elementContains(words, elc);
+  var search = sessionStorage.getItem(window.relearn.absBaseUri + '/search-value');
+  if (search && search.length) {
+    search = regexEscape(search);
+    var found = elementContains(search, elc);
     var searchedElem = found.length && found[0];
     if (searchedElem) {
       searchedElem.scrollIntoView();
@@ -1435,42 +1414,6 @@ function scrollToPositions() {
   }
 }
 
-function handleHistoryClearer() {
-  document.querySelectorAll('.R-historyclearer button').forEach(function (select) {
-    select.addEventListener('click', function (event) {
-      clearHistory();
-    });
-  });
-}
-
-function handleLanguageSwitcher() {
-  document.querySelectorAll('.R-languageswitcher select').forEach(function (select) {
-    select.addEventListener('change', function (event) {
-      const url = this.options[`R-select-language-${this.value}`].dataset.url;
-      this.value = this.querySelector('[data-selected]')?.value ?? select.value;
-      window.location = url;
-    });
-  });
-}
-
-function handleVariantSwitcher() {
-  document.querySelectorAll('.R-variantswitcher select').forEach(function (select) {
-    select.addEventListener('change', function (event) {
-      window.relearn.changeVariant(this.value);
-    });
-  });
-}
-
-function handleVersionSwitcher() {
-  document.querySelectorAll('.R-versionswitcher select').forEach(function (select) {
-    select.addEventListener('change', function (event) {
-      const url = (this.options[`R-select-version-${this.value}`].dataset.abs == 'true' ? '' : window.relearn.relBaseUri) + this.options[`R-select-version-${this.value}`].dataset.uri + window.relearn.path;
-      this.value = this.querySelector('[data-selected]')?.value ?? select.value;
-      window.location = url;
-    });
-  });
-}
-
 window.addEventListener('popstate', function (event) {
   scrollToPositions();
 });
@@ -1481,20 +1424,15 @@ const observer = new PerformanceObserver(function () {
 observer.observe({ type: 'navigation' });
 
 function mark() {
-  var search = window.relearn.getItem(window.sessionStorage, window.relearn.absBaseUri + '/search-value');
-  var words = (search ?? '').split(' ').filter((word) => word.trim() != '');
-  if (!words || !words.length) {
-    return;
-  }
-
   // mark some additional stuff as searchable
   var bodyInnerLinks = document.querySelectorAll('#R-body-inner a:not(.lightbox-link):not(.btn):not(.lightbox-back)');
   for (var i = 0; i < bodyInnerLinks.length; i++) {
     bodyInnerLinks[i].classList.add('highlight');
   }
 
+  var value = sessionStorage.getItem(window.relearn.absBaseUri + '/search-value');
   var highlightableElements = document.querySelectorAll('.highlightable');
-  highlight(highlightableElements, words, { element: 'mark', className: 'search' });
+  highlight(highlightableElements, value, { element: 'mark', className: 'search' });
 
   var markedElements = document.querySelectorAll('mark.search');
   for (var i = 0; i < markedElements.length; i++) {
@@ -1535,12 +1473,21 @@ function highlight(es, words, options) {
   };
   Object.assign(settings, options);
 
-  if (!words.length) {
+  if (!words) {
     return;
   }
+  if (words.constructor === String) {
+    words = [words];
+  }
+  words = words.filter(function (word, i) {
+    return word != '';
+  });
   words = words.map(function (word, i) {
     return regexEscape(word);
   });
+  if (words.length == 0) {
+    return this;
+  }
 
   var flag = settings.caseSensitive ? '' : 'i';
   var pattern = '(' + words.join('|') + ')';
@@ -1583,6 +1530,7 @@ function highlightNode(node, re, nodeName, className) {
 }
 
 function unmark() {
+  sessionStorage.removeItem(window.relearn.absBaseUri + '/search-value');
   var markedElements = document.querySelectorAll('mark.search');
   for (var i = 0; i < markedElements.length; i++) {
     var parent = markedElements[i].parentNode;
@@ -1633,51 +1581,30 @@ function unhighlight(es, options) {
 }
 
 // replace jQuery.createPseudo with https://stackoverflow.com/a/66318392
-function elementContains(words, e) {
-  var settings = {
-    caseSensitive: false,
-    wordsOnly: false,
-  };
-
-  if (!words.length) {
-    return [];
-  }
-  if (!e) {
-    return [];
-  }
-  words = words.map(function (word, i) {
-    return regexEscape(word);
-  });
-  var flag = settings.caseSensitive ? '' : 'i';
+function elementContains(txt, e) {
+  var regex = RegExp(txt, 'i');
   var nodes = [];
-
-  var pattern = '(' + words.join('|') + ')';
-  if (settings.wordsOnly) {
-    pattern = '\\b' + pattern + '\\b';
+  if (e) {
+    var tree = document.createTreeWalker(
+      e,
+      4 /* NodeFilter.SHOW_TEXT */,
+      function (node) {
+        return regex.test(node.data);
+      },
+      false
+    );
+    var node = null;
+    while ((node = tree.nextNode())) {
+      nodes.push(node.parentElement);
+    }
   }
-  var regex = new RegExp(pattern, flag);
-
-  var tree = document.createTreeWalker(
-    e,
-    4, // NodeFilter.SHOW_TEXT
-    function (node) {
-      return regex.test(node.data);
-    },
-    false
-  );
-  var node = null;
-  while ((node = tree.nextNode())) {
-    nodes.push(node.parentElement);
-  }
-
   return nodes;
 }
 
 function searchInputHandler(value) {
-  window.relearn.removeItem(window.sessionStorage, window.relearn.absBaseUri + '/search-value');
   unmark();
   if (value.length) {
-    window.relearn.setItem(window.sessionStorage, window.relearn.absBaseUri + '/search-value', value);
+    sessionStorage.setItem(window.relearn.absBaseUri + '/search-value', value);
     mark();
   }
 }
@@ -1689,16 +1616,15 @@ function initSearch() {
     e.addEventListener('keydown', function (event) {
       if (event.key == 'Escape') {
         var input = event.target;
-        var search = window.relearn.getItem(window.sessionStorage, window.relearn.absBaseUri + '/search-value');
-        var words = (search ?? '').split(' ').filter((word) => word.trim() != '');
-        if (!words || !words.length) {
+        var search = sessionStorage.getItem(window.relearn.absBaseUri + '/search-value');
+        if (!search || !search.length) {
           input.blur();
         }
         searchInputHandler('');
         inputs.forEach(function (e) {
           e.value = '';
         });
-        if (!words || !words.length) {
+        if (!search || !search.length) {
           documentFocus();
         }
       }
@@ -1723,7 +1649,6 @@ function initSearch() {
         event.initEvent('input', false, false);
         e.dispatchEvent(event);
       });
-      window.relearn.removeItem(window.sessionStorage, window.relearn.absBaseUri + '/search-value');
       unmark();
     });
   });
@@ -1731,13 +1656,13 @@ function initSearch() {
   var urlParams = new URLSearchParams(window.location.search);
   var value = urlParams.get('search-by');
   if (value) {
-    window.relearn.setItem(window.sessionStorage, window.relearn.absBaseUri + '/search-value', value);
-    mark();
+    sessionStorage.setItem(window.relearn.absBaseUri + '/search-value', value);
   }
+  mark();
 
   // set initial search value for inputs on page load
-  var search = window.relearn.getItem(window.sessionStorage, window.relearn.absBaseUri + '/search-value');
-  if (search) {
+  if (sessionStorage.getItem(window.relearn.absBaseUri + '/search-value')) {
+    var search = sessionStorage.getItem(window.relearn.absBaseUri + '/search-value');
     inputs.forEach(function (e) {
       e.value = search;
       var event = document.createEvent('Event');
@@ -1746,8 +1671,8 @@ function initSearch() {
     });
   }
 
-  window.relearn.isSearchInterfaceReady = true;
-  window.relearn.executeInitialSearch && window.relearn.executeInitialSearch();
+  window.relearn.isSearchInit = true;
+  window.relearn.runInitialSearch && window.relearn.runInitialSearch();
 }
 
 document.addEventListener('themeVariantLoaded', function (ev) {
@@ -1778,8 +1703,8 @@ function useMermaid(config) {
     mermaid.initialize(Object.assign({ securityLevel: 'antiscript', startOnLoad: false }, config));
   }
 }
-if (window.relearn.themeUseMermaid) {
-  useMermaid(window.relearn.themeUseMermaid);
+if (window.themeUseMermaid) {
+  useMermaid(window.themeUseMermaid);
 }
 
 function useOpenapi(config) {
@@ -1787,8 +1712,8 @@ function useOpenapi(config) {
     config.css = window.relearn.relBasePath + config.css;
   }
 }
-if (window.relearn.themeUseOpenapi) {
-  useOpenapi(window.relearn.themeUseOpenapi);
+if (window.themeUseOpenapi) {
+  useOpenapi(window.themeUseOpenapi);
 }
 
 function ready(fn) {
@@ -1802,10 +1727,6 @@ function ready(fn) {
 ready(function () {
   initArrowVerticalNav();
   initArrowHorizontalNav();
-  handleHistoryClearer();
-  handleLanguageSwitcher();
-  handleVariantSwitcher();
-  handleVersionSwitcher();
   initMermaid();
   initOpenapi();
   initMenuScrollbar();
@@ -1934,7 +1855,6 @@ ready(function () {
           isEmpty = !clone.innerHTML.trim();
         }
         button.querySelector('button').disabled = isEmpty;
-        button.querySelector('.btn').classList.toggle('interactive', !isEmpty);
         button.style.display = isEmpty && button.dataset.contentEmpty == 'hide' ? 'none' : 'inline-block';
       }
     });
@@ -1953,21 +1873,19 @@ ready(function () {
     moveTopbarButtons();
     adjustEmptyTopbarContents();
   }
-  if (topbar) {
-    var mqs = window.matchMedia('only screen and (max-width: 47.999rem)');
-    mqs.addEventListener('change', onWidthChange.bind(null, setWidthS));
-    var mqm = window.matchMedia('only screen and (min-width: 48rem) and (max-width: 59.999rem)');
-    mqm.addEventListener('change', onWidthChange.bind(null, setWidthM));
-    var mql = window.matchMedia('only screen and (min-width: 60rem)');
-    mql.addEventListener('change', onWidthChange.bind(null, setWidthL));
+  var mqs = window.matchMedia('only screen and (max-width: 47.999rem)');
+  mqs.addEventListener('change', onWidthChange.bind(null, setWidthS));
+  var mqm = window.matchMedia('only screen and (min-width: 48rem) and (max-width: 59.999rem)');
+  mqm.addEventListener('change', onWidthChange.bind(null, setWidthM));
+  var mql = window.matchMedia('only screen and (min-width: 60rem)');
+  mql.addEventListener('change', onWidthChange.bind(null, setWidthL));
 
-    addTopbarButtonInfos();
-    setWidthS(mqs);
-    setWidthM(mqm);
-    setWidthL(mql);
-    moveTopbarButtons();
-    adjustEmptyTopbarContents();
-  }
+  addTopbarButtonInfos();
+  setWidthS(mqs);
+  setWidthM(mqm);
+  setWidthL(mql);
+  moveTopbarButtons();
+  adjustEmptyTopbarContents();
 })();
 
 (function () {
@@ -2000,81 +1918,3 @@ function normalizeColor(c) {
   c = c.replace(/ +/g, ' ');
   return c;
 }
-
-function initVersionIndex(index) {
-  if (!index || !index.length) {
-    return;
-  }
-
-  document.querySelectorAll('.R-versionswitcher select').forEach(function (select) {
-    var preSelectedOption = select.querySelector('[data-selected]')?.cloneNode(true);
-
-    var selectedOption = null;
-    if (select.selectedIndex >= 0) {
-      selectedOption = select.options[select.selectedIndex].cloneNode(true);
-    }
-
-    // Remove all existing options
-    while (select.firstChild) {
-      select.removeChild(select.firstChild);
-    }
-
-    // Add all options from the index
-    index.forEach(function (version) {
-      // Create new option element
-      var option = document.createElement('option');
-      option.id = 'R-select-version-' + version.value;
-      option.value = version.value;
-      option.dataset.abs = version.isAbs;
-      option.dataset.uri = version.baseURL;
-      option.dataset.identifier = version.identifier;
-      option.textContent = version.title;
-
-      // Add the option to the select
-      select.appendChild(option);
-    });
-
-    if (preSelectedOption) {
-      const option = select.querySelector(`option[value="${preSelectedOption.value}"]`);
-      if (!option) {
-        select.appendChild(preSelectedOption);
-      } else {
-        option.dataset.selected = '';
-      }
-    }
-    if (selectedOption) {
-      // Re-select the previously selected option if it exists
-      const option = select.querySelector(`option[value="${selectedOption.value}"]`);
-      if (!option) {
-        select.appendChild(selectedOption);
-      }
-      select.value = selectedOption.value;
-    } else if (select.options.length > 0) {
-      // If there was no selection before, select the first option
-      select.selectedIndex = 0;
-      return;
-    }
-  });
-}
-
-function initVersionJs() {
-  if (window.relearn.version_js_url) {
-    var js = document.createElement('script');
-    // we need to add a random number on each call to read this file fresh from the server;
-    // it may reside in a different Hugo instance and therefore we do not know when it changes
-    var url = new URL(window.relearn.version_js_url, window.location.href);
-    var randomNum = Math.floor(Math.random() * 1000000);
-    url.searchParams.set('v', randomNum.toString());
-    js.src = url.toString();
-    js.setAttribute('async', '');
-    js.onload = function () {
-      initVersionIndex(relearn_versionindex);
-    };
-    js.onerror = function (e) {
-      console.error('Error getting version index file');
-    };
-    document.head.appendChild(js);
-  }
-}
-
-initVersionJs();
