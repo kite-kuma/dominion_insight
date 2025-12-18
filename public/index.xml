@@ -6,14 +6,14 @@
     <description>はじめに このサイトではデッキ構築型カードゲーム『ドミニオン』の戦術について解説します． 画面の左側にある一覧から読みたい記事を選択できます．&#xA;サイトについて，詳しくはこのサイトについてをご覧ください．</description>
     <generator>Hugo</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 17 Dec 2025 20:38:19 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 18 Dec 2025 15:48:04 +0900</lastBuildDate>
     <atom:link href="http://localhost:1313/dominion_insight/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Rules</title>
+      <title>ルール</title>
       <link>http://localhost:1313/dominion_insight/rules/index.html</link>
-      <pubDate>Wed, 17 Dec 2025 20:38:19 +0900</pubDate>
+      <pubDate>Thu, 18 Dec 2025 15:48:04 +0900</pubDate>
       <guid>http://localhost:1313/dominion_insight/rules/index.html</guid>
-      <description></description>
+      <description>Dominion のルールについて解説します．</description>
     </item>
     <item>
       <title>コラム</title>
