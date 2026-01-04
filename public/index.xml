@@ -6,8 +6,15 @@
     <description>はじめに このサイトではデッキ構築型カードゲーム『ドミニオン』の戦術について解説します． 画面の左側にある一覧から読みたい記事を選択できます．&#xA;サイトについて，詳しくはこのサイトについてをご覧ください．</description>
     <generator>Hugo</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 18 Dec 2025 15:48:04 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 04 Jan 2026 13:39:18 +0900</lastBuildDate>
     <atom:link href="http://localhost:1313/dominion_insight/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Find the win</title>
+      <link>http://localhost:1313/dominion_insight/find_the_win/index.html</link>
+      <pubDate>Sun, 04 Jan 2026 13:39:18 +0900</pubDate>
+      <guid>http://localhost:1313/dominion_insight/find_the_win/index.html</guid>
+      <description>与えられた局面から相手にターンを渡さずに勝ち切ることを達成するパズルについて紹介・解説します．&#xA;ルール ドミニオン 2 人戦の局面が提示されるので，そこから相手にターンを渡さずに勝利を確定させることができれば成功とみなす． 具体的には，ターン終了時に勝利点で相手を上回り，かつ以下のいずれかが満たされていれば良い．&#xA;属州の山が空になっている． サプライの山のうち 3 つ以上が空になっている． 今後，相手がどのように行動をしたとしても，自分は自分のターンに何も行動をしなければ相手の勝利点が自分の勝利点以上になることはない． 項目 3 については，例えば呪い撒きや基本カード以外の勝利点の無いゲームで，自分が 44 点を獲得していれば，相手が残りの勝利点を全て取ったとしても 42 点にしか満たないため条件を満たす． ドミニオン界ではこのような状況も勝利とみなすのが一般的なようである．&#xA;ただし，一方が勝利点で上回り続けることが確定していたとしても，それ以降何ターン掛けたとしても自発的にゲーム終了条件を満たすことができない場合がある． 例えば，プレイヤー A のデッキが 屋敷 5 枚公領 5 枚属州 4 枚の計 14 枚 (44 点) で，プレイヤー B のデッキが毎ターン拷問人を 5 回以上プレイできるデッキであるとする．このときプレイヤー A は呪いを 2 枚以上獲得してしまうと勝利点で B に追いつかれてしまう可能性があるため，B の拷問ロックに対して A は手札を全て捨てて毎ターン銅貨を購入するくらいしかできず，膠着状態となる． ドミニオンには終了条件がずっと満たされない場合のルールが存在しないため，このような場合の結果は不定だが，本サイトではこのような状況であっても，上記の項目 3 の条件を満たしていればプレイヤー A の勝利とみなす．</description>
+    </item>
     <item>
       <title>ルール</title>
       <link>http://localhost:1313/dominion_insight/rules/index.html</link>
